@@ -1,29 +1,55 @@
 package io.ebtproject.projectlms.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "kitap", schema = "lms", catalog = "")
+@Table(name = "kitap")
 public class KitapEntity {
-    private Long id;
-    private String kitapAdi;
-    private String yazarAdi;
-    private int isbn;
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long getId() {
-        return id;
+    private Long id;
+
+
+    @Column(name = "kitap_adi")
+    private String kitapAdi;
+
+
+    @Column(name = "yazar_adi")
+    private String yazarAdi;
+
+    @Column(name = "isbn")
+    private int isbn;
+
+    @OneToMany(mappedBy = "kitapEntity",fetch = FetchType.EAGER)
+    @JsonBackReference("kitap")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    private List< KitaporderEntity > kitaporderEntities;
+
+    public KitapEntity() {
+
+    }
+
+    public KitapEntity(String kitapAdi, String yazarAdi, int isbn) {
+        this.kitapAdi = kitapAdi;
+        this.yazarAdi = yazarAdi;
+        this.isbn = isbn;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "kitap_adi")
+    public Long getId() {
+        return id;
+    }
+
     public String getKitapAdi() {
         return kitapAdi;
     }
@@ -32,8 +58,6 @@ public class KitapEntity {
         this.kitapAdi = kitapAdi;
     }
 
-    @Basic
-    @Column(name = "yazar_adi")
     public String getYazarAdi() {
         return yazarAdi;
     }
@@ -42,8 +66,7 @@ public class KitapEntity {
         this.yazarAdi = yazarAdi;
     }
 
-    @Basic
-    @Column(name = "isbn")
+
     public int getIsbn() {
         return isbn;
     }
@@ -57,8 +80,8 @@ public class KitapEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         KitapEntity that = (KitapEntity) o;
-        return id == that.id &&
-                isbn == that.isbn &&
+        return  id.equals(that.id) &&
+                isbn == that.isbn  &&
                 Objects.equals(kitapAdi, that.kitapAdi) &&
                 Objects.equals(yazarAdi, that.yazarAdi);
     }

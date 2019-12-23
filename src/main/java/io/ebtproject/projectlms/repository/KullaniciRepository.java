@@ -4,4 +4,6 @@ import io.ebtproject.projectlms.model.KullaniciEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface KullaniciRepository extends CrudRepository<KullaniciEntity, Long> {
+
+    KullaniciEntity getById(Long id);
 }

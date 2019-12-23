@@ -1,28 +1,52 @@
 package io.ebtproject.projectlms.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "kullanici", schema = "lms", catalog = "")
+@Table(name = "kullanici")
 
 public class KullaniciEntity {
-    private int id;
-    private String isim;
-    private String soyisim;
+
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int getId() {
+    private Long id;
+
+    @Column(name = "isim")
+    private String isim;
+
+    @Column(name = "soyisim")
+    private String soyisim;
+
+    @OneToMany(mappedBy = "kullaniciEntity", fetch = FetchType.EAGER)
+    @JsonBackReference("kullanici")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    private List<KitaporderEntity> kitaporderEntities;
+
+    public KullaniciEntity() {
+    }
+
+    public KullaniciEntity(String isim, String soyisim) {
+        this.isim = isim;
+        this.soyisim = soyisim;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "isim")
     public String getIsim() {
         return isim;
     }
@@ -31,8 +55,6 @@ public class KullaniciEntity {
         this.isim = isim;
     }
 
-    @Basic
-    @Column(name = "soyisim")
     public String getSoyisim() {
         return soyisim;
     }
@@ -41,18 +63,18 @@ public class KullaniciEntity {
         this.soyisim = soyisim;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        KullaniciEntity that = (KullaniciEntity) o;
-        return id == that.id &&
-                Objects.equals(isim, that.isim) &&
-                Objects.equals(soyisim, that.soyisim);
+    public List<KitaporderEntity> getKitaporderEntities() {
+        return kitaporderEntities;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, isim, soyisim);
+    public void setKitaporderEntities(List<KitaporderEntity> kitaporderEntities) {
+        this.kitaporderEntities = kitaporderEntities;
     }
+
 }
+
+
+
+
+
+

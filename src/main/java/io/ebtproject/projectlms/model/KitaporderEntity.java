@@ -2,57 +2,68 @@ package io.ebtproject.projectlms.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "kitaporder", schema = "lms", catalog = "")
+@Table(name = "kitaporder")
 public class KitaporderEntity {
-    private int id;
-    private Integer kullanıcıId;
-    private Timestamp alınmaTarihi;
+
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int getId() {
-        return id;
-    }
+    private Long id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "kitap_id")
+    private KitapEntity kitapEntity;
 
-    @Basic
-    @Column(name = "kullanıcı_id")
-    public Integer getKullanıcıId() {
-        return kullanıcıId;
-    }
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "kullanıcı_id")
+    private KullaniciEntity kullaniciEntity;
 
-    public void setKullanıcıId(Integer kullanıcıId) {
-        this.kullanıcıId = kullanıcıId;
-    }
-
-    @Basic
     @Column(name = "alınma_tarihi")
-    public Timestamp getAlınmaTarihi() {
-        return alınmaTarihi;
-    }
+    private Date alınmaTarihi;
 
-    public void setAlınmaTarihi(Timestamp alınmaTarihi) {
+    public KitaporderEntity() {}
+
+    public KitaporderEntity(Date alınmaTarihi) {
         this.alınmaTarihi = alınmaTarihi;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        KitaporderEntity that = (KitaporderEntity) o;
-        return id == that.id &&
-                Objects.equals(kullanıcıId, that.kullanıcıId) &&
-                Objects.equals(alınmaTarihi, that.alınmaTarihi);
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, kullanıcıId, alınmaTarihi);
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public KitapEntity getKitapEntity() {
+        return kitapEntity;
+    }
+
+    public void setKitapEntity(KitapEntity kitapEntity) {
+        this.kitapEntity = kitapEntity;
+    }
+
+    public KullaniciEntity getKullaniciEntity() {
+        return kullaniciEntity;
+    }
+
+    public void setKullaniciEntity(KullaniciEntity kullaniciEntity) {
+        this.kullaniciEntity = kullaniciEntity;
+    }
+
+    public Date getAlınmaTarihi() {
+        return alınmaTarihi;
+    }
+
+    public void setAlınmaTarihi(Date alınmaTarihi) {
+        this.alınmaTarihi = alınmaTarihi;
     }
 }
+
+
+

@@ -46,7 +46,7 @@ public class KitapController {
 
     }
 
-    @GetMapping("/göster/{pt_id}")
+    @GetMapping("/goster/{pt_id}")
     public ResponseEntity<?> getPTById(@PathVariable Long pt_id){
         KitapEntity kitap = KitapService.findById(pt_id);
         return new ResponseEntity<KitapEntity>(kitap, HttpStatus.OK);
