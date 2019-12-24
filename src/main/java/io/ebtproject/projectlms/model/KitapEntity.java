@@ -75,6 +75,14 @@ public class KitapEntity {
         this.isbn = isbn;
     }
 
+    public List<KitaporderEntity> getKitaporderEntities() {
+        return kitaporderEntities;
+    }
+
+    public void setKitaporderEntities(List<KitaporderEntity> kitaporderEntities) {
+        this.kitaporderEntities = kitaporderEntities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

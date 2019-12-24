@@ -14,6 +14,7 @@ public interface KitaporderRepository extends JpaRepository<KitaporderEntity, Lo
 
     List<KitaporderEntity> findByKitapEntityId(Long kitap_id);
     List<KitaporderEntity> findByKullaniciEntityId(Long kullanici_id);
-    Optional<KitaporderEntity> findByIdAndKitapEntityId(Long id, Long id2 );
+    Optional<KitaporderEntity> findByIdAndKitapEntityId(Long id, Long id2);
+
 
 }

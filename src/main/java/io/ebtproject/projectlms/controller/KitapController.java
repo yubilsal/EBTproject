@@ -1,6 +1,7 @@
 package io.ebtproject.projectlms.controller;
 
 import io.ebtproject.projectlms.model.KitapEntity;
+import io.ebtproject.projectlms.repository.KitapRepository;
 import io.ebtproject.projectlms.service.KitapService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,15 @@ import java.util.Map;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/kitap")
 public class KitapController {
 
     @Autowired
     private KitapService KitapService;
 
-    @PostMapping("/ekle")
+    @Autowired
+    private KitapRepository kitaprepository;
+
+    @PostMapping("/kitap")
     public ResponseEntity<?> addPTTtoBoard(@Valid @RequestBody KitapEntity kitap, BindingResult result){
 
         if (result.hasErrors()){
@@ -40,23 +43,31 @@ public class KitapController {
         return new ResponseEntity<KitapEntity>(yeniKitap, HttpStatus.CREATED);
 
     }
-    @GetMapping("/all")
+    @GetMapping("/kitap")
     public Iterable<KitapEntity> getallPt(@Valid KitapEntity kitap,BindingResult Result){
         return KitapService.findAll();
 
     }
 
-    @GetMapping("/goster/{pt_id}")
-    public ResponseEntity<?> getPTById(@PathVariable Long pt_id){
-        KitapEntity kitap = KitapService.findById(pt_id);
-        return new ResponseEntity<KitapEntity>(kitap, HttpStatus.OK);
+    @GetMapping("/kitap/{pt_id}")
+    public ResponseEntity<KitapEntity> getPTById(@PathVariable(value = "pt_id") Long pt_id){
+
+        return kitaprepository.findById(pt_id)
+                .map(record -> ResponseEntity.ok().body(record))
+                .orElse(ResponseEntity.notFound().build());
+
     }
 
-    @DeleteMapping("/sil/{pt_id}")
+    @DeleteMapping("/kitap/{pt_id}")
     public ResponseEntity<?> deleteProjectTask(@PathVariable Long pt_id){
+
+        KitapEntity kitap = KitapService.findById(pt_id);
+        if  ( kitap == null ) {
+            return new ResponseEntity<String>("Kitap Bulunamadı", HttpStatus.OK);
+        }
         KitapService.delete(pt_id);
 
-        return new ResponseEntity<String>("Kitap silindi", HttpStatus.OK);
+        return new ResponseEntity<String>("Kitap Başarıyla Silindi", HttpStatus.OK);
     }
 
 
