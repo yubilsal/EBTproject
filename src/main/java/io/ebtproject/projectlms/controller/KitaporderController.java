@@ -65,7 +65,14 @@ public class KitaporderController {
             return kitaporderRepository.save(kkitaportderentity);
         }).orElseThrow(() -> new InvalidConfigurationPropertyValueException("aaaa","bbbb",null));
     }
-
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") long id) {
+        return kitaporderRepository.findById(id)
+                .map(record -> {
+                    kitaporderRepository.deleteById(id);
+                    return ResponseEntity.ok().build();
+                }).orElse(ResponseEntity.notFound().build());
+    }
 
 }
 

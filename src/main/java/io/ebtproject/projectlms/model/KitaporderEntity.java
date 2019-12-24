@@ -1,5 +1,7 @@
 package io.ebtproject.projectlms.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
