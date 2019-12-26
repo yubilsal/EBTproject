@@ -26,6 +26,7 @@ public class KitaporderEntity {
     private KullaniciEntity kullaniciEntity;
 
     @Column(name = "alınma_tarihi")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date alınmaTarihi;
 
     public KitaporderEntity() {}

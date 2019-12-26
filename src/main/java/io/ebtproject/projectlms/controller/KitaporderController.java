@@ -1,16 +1,11 @@
 package io.ebtproject.projectlms.controller;
 
 import io.ebtproject.projectlms.model.KitaporderEntity;
-import io.ebtproject.projectlms.model.KullaniciEntity;
-import io.ebtproject.projectlms.model.KitapEntity;
 import io.ebtproject.projectlms.repository.KullaniciRepository;
 import io.ebtproject.projectlms.repository.KitapRepository;
-import io.ebtproject.projectlms.service.KullaniciService;
-import io.ebtproject.projectlms.service.KitapService;
 import io.ebtproject.projectlms.repository.KitaporderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
