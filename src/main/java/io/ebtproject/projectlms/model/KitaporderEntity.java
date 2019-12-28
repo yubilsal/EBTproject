@@ -3,9 +3,7 @@ package io.ebtproject.projectlms.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "kitaporder")
@@ -25,14 +23,14 @@ public class KitaporderEntity {
     @JoinColumn(name = "kullanıcı_id")
     private KullaniciEntity kullaniciEntity;
 
-    @Column(name = "alınma_tarihi")
+    @Column(name = "tarih")
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date alınmaTarihi;
+    private Date tarih;
 
     public KitaporderEntity() {}
 
-    public KitaporderEntity(Date alınmaTarihi) {
-        this.alınmaTarihi = alınmaTarihi;
+    public KitaporderEntity(Date tarih) {
+        this.tarih = tarih;
     }
 
     public Long getId() {
@@ -59,12 +57,12 @@ public class KitaporderEntity {
         this.kullaniciEntity = kullaniciEntity;
     }
 
-    public Date getAlınmaTarihi() {
-        return alınmaTarihi;
+    public Date getarih() {
+        return tarih;
     }
 
-    public void setAlınmaTarihi(Date alınmaTarihi) {
-        this.alınmaTarihi = alınmaTarihi;
+    public void settarih(Date tarih) {
+        this.tarih = tarih;
     }
 }
 
